@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import csv
+import subprocess
 
 # declaring variables for the program to run
 val = 0
@@ -9,8 +10,9 @@ count = 0
 maximum_jobs = int(input("Enter the maximum number of jobs to be scraped: "))
 job_name = input("Enter the job name: ")
 location = input("Enter the location: ")
-
 delete_file = input("Do you want to delete the existing file? (y/n): ")
+shut_down = input("Do you want to shut down the computer after the program is completed? (y/n): ")
+
 if delete_file == "y":
     with open('job.csv', 'w') as csv_file:
         csv_file.write("")
@@ -53,6 +55,8 @@ def get_job_info(jobs):
                 csv_writer(job.text,href)
         except Exception:
             continue
+def shutdown_system():
+    subprocess.run(["systemctl", "poweroff"])
 
 # looping through the pages
 while val < maximum_jobs:
@@ -65,3 +69,7 @@ while val < maximum_jobs:
 
 # closing the driver
 driver.quit()
+
+# shutting down the computer
+if shut_down == "y":
+    shutdown_system()
