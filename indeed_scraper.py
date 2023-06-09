@@ -1,15 +1,21 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import csv
-driver = webdriver.Chrome()
 
 # declaring variables for the program to run
 val = 0
 count = 0
-maximum_jobs = 100
-job_name = "Software Engineer"
-location = "India"
+# maximum number of jobs to be scraped
+maximum_jobs = int(input("Enter the maximum number of jobs to be scraped: "))
+job_name = input("Enter the job name: ")
+location = input("Enter the location: ")
 
+delete_file = input("Do you want to delete the existing file? (y/n): ")
+if delete_file == "y":
+    with open('job.csv', 'w') as csv_file:
+        csv_file.write("")
+
+driver = webdriver.Chrome()
 # declaring the minimum waiting time for the driver to wait for the page to load
 driver.implicitly_wait(10)
 
@@ -21,7 +27,7 @@ job_box = driver.find_element(by=By.XPATH, value="/html/body/div[1]/div[1]/div/s
 job_box.send_keys(job_name)
 
 # finding the location box and entering the location
-location_box = driver.find_element(by=By.XPATH, value="/html/body/main/div/div[1]/div/div/div[2]/div/div/div/div[1]/form/div/div[2]/div/div[1]/div/div[2]/input")
+location_box = driver.find_element(by=By.XPATH, value="/html/body/div/div[1]/div/span/div[3]/div[1]/div/div/div/div/form/div/div[2]/div/div[1]/div/div[2]/input")
 location_box.send_keys(location)
 
 # finding the search button and clicking it
@@ -42,9 +48,7 @@ def get_job_info(jobs):
         try:
             a = job.find_element(By.TAG_NAME, "a")
             if a and job.text:
-                print(job.text)
                 href = a.get_attribute("href")
-                print(href + "\n")
                 count += 1
                 csv_writer(job.text,href)
         except Exception:
