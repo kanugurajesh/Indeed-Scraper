@@ -45,13 +45,16 @@ def csv_writer(data,href):
     
 # function to get the job information
 def get_job_info(jobs):
-    global count
+    # global count
     for job in jobs:
         try:
             a = job.find_element(By.TAG_NAME, "a")
-            if a and job.text:
+            if val >= maximum_jobs:
+                break
+            elif a and job.text:
                 href = a.get_attribute("href")
-                count += 1
+                # count += 1
+                val += 1
                 csv_writer(job.text,href)
         except Exception:
             continue
@@ -63,7 +66,7 @@ while val < maximum_jobs:
     job = driver.find_element(by=By.XPATH, value="/html/body/main/div/div[1]/div/div/div[5]/div[1]/div[5]/div/ul")
     li_elements = job.find_elements(By.TAG_NAME, "li")
     get_job_info(li_elements)
-    val += count
+    # val += count
     count = 0
     driver.get("https://in.indeed.com/jobs?q=software+engineer&l=India&fromage=1&start="+str(val+1))
 
