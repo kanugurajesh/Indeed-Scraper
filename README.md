@@ -1,4 +1,4 @@
-# indeed_scraper
+# indeed scraper
 #### this project is used to scrape indeed application
 
 ## Installation
