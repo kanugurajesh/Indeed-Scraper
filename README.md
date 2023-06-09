@@ -8,6 +8,8 @@
 #### 4. Create a virtual environment
 #### 5. Activate the virtual environment
 #### 6. Install the requirements using - `pip install -r requirements.txt`
+#### 7. Install the chromedriver based on your chrome version and os and place it in the root directory i am using chromedriver for linux replace it with your own chromedriver
+
 #### 7. Run the application
 
 ## Usage
